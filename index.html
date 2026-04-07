@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vistara Group IPO</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif
+}
+
+/* UPDATED BACKGROUND (better for logo visibility) */
+body{
+  background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a);
+  color:#fff;
+  overflow:hidden;
+}
+
+.container{
+  display:grid;
+  grid-template-rows: 18% 10% 27% 45%;
+  height:100vh;
+  padding:20px;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo img{
+  height:65px;
+  background:#fff;              /* makes logo visible */
+  padding:6px;
+  border-radius:10px;
+  animation: floatLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatLogo{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.message{
+  font-size:20px;
+  font-weight:500;
+  color:#e2e8f0;
+}
+
+/* IPO TEXT (NEW) */
+.ipo-text{
+  text-align:center;
+  font-size:42px;
+  font-weight:700;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#38bdf8,#facc15);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* COUNTDOWN */
+.countdown{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:25px;
+}
+
+.box{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  min-width:120px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+
+.value{
+  font-size:36px;
+  font-weight:bold
+}
+
+.label{
+  font-size:13px;
+  opacity:0.7
+}
+
+/* SLIDER */
+.slider{
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* GRID SLIDE */
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  opacity:0;
+  transform:scale(1.05);
+  transition:all 1s ease;
+
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  padding:25px;
+
+  align-items:center;
+  justify-items:center;
+
+  background:rgba(255,255,255,0.05);
+}
+
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* CARDS */
+.slide img{
+  width:100%;
+  max-width:300px;
+  height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
+  transition:0.4s;
+}
+
+.slide img:hover{
+  transform:scale(1.08);
+}
+
+/* TITLE */
+.title{
+  position:absolute;
+  bottom:12px;
+  left:20px;
+  font-size:22px;
+  font-weight:600;
+}
+
+/* BUBBLES */
+.bubble{
+  position:absolute;
+  bottom:-100px;
+  background:rgba(255,255,255,0.1);
+  border-radius:50%;
+  animation: rise 10s infinite ease-in;
+}
+
+@keyframes rise{
+  0%{transform:translateY(0);opacity:0}
+  50%{opacity:1}
+  100%{transform:translateY(-120vh);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <img src="img/logo.jpg.jpeg" alt="logo">
+    </div>
+    <div class="message">A New Era of Growth Begins</div>
+  </div>
+
+  <!-- IPO TEXT -->
+  <div class="ipo-text">VISTARA GROUP IPO 2032</div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown">
+    <div class="box"><div id="d" class="value"></div><div class="label">Days</div></div>
+    <div class="box"><div id="h" class="value"></div><div class="label">Hours</div></div>
+    <div class="box"><div id="m" class="value"></div><div class="label">Minutes</div></div>
+    <div class="box"><div id="s" class="value"></div><div class="label">Seconds</div></div>
+  </div>
+
+  <!-- SLIDER -->
+  <div class="slider">
+
+    <div class="slide active">
+      <img src="img/event1.JPG">
+      <img src="img/event2.JPG">
+      <img src="img/event3.JPG">
+      
+      
+      <div class="title">Our Events</div>
+    </div>
+
+    <div class="slide">
+      <img src="img/leadership2.JPG">
+      <img src="img/leadership1.JPG">
+      <img src="img/leadership3.JPG">
+      
+      <div class="title">Leadership</div>
+    </div>
+
+    <div class="slide">
+      <img src="img/team1.jpeg">
+      <img src="img/team3.jpeg">
+      <img src="img/team2.jpeg">
+      
+      <div class="title">Our Team</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// BUBBLES
+for(let i=0;i<15;i++){
+  let b=document.createElement('div');
+  b.className='bubble';
+  b.style.left=Math.random()*100+'%';
+  b.style.width=b.style.height=(20+Math.random()*40)+'px';
+  b.style.animationDuration=(5+Math.random()*5)+'s';
+  document.body.appendChild(b);
+}
+
+// COUNTDOWN
+const target = new Date("Jan 1, 2032 00:00:00").getTime();
+
+setInterval(()=>{
+  const now = new Date().getTime();
+  const gap = target - now;
+
+  document.getElementById('d').innerText = Math.floor(gap/(1000*60*60*24));
+  document.getElementById('h').innerText = Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+  document.getElementById('m').innerText = Math.floor((gap%(1000*60*60))/(1000*60));
+  document.getElementById('s').innerText = Math.floor((gap%(1000*60))/1000);
+
+},1000);
+
+// SLIDER
+let slides=document.querySelectorAll('.slide');
+let index=0;
+
+setInterval(()=>{
+  slides[index].classList.remove('active');
+  index=(index+1)%slides.length;
+  slides[index].classList.add('active');
+},3500);
+</script>
+
+</body>
+</html>
