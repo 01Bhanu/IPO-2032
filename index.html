@@ -13,7 +13,6 @@
   font-family:'Segoe UI',sans-serif
 }
 
-/* UPDATED BACKGROUND (better for logo visibility) */
 body{
   background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a);
   color:#fff;
@@ -36,7 +35,7 @@ body{
 
 .logo img{
   height:140px;
-  background:#020617;              /* makes logo visible */
+  background:#020617;
   padding:6px;
   border-radius:10px;
   animation: floatLogo 4s ease-in-out infinite;
@@ -53,7 +52,7 @@ body{
   color:#e2e8f0;
 }
 
-/* IPO TEXT (NEW) */
+/* IPO TEXT */
 .ipo-text{
   text-align:center;
   font-size:42px;
@@ -92,6 +91,37 @@ body{
   opacity:0.7
 }
 
+/* CLOCK */
+.clock{
+  position:relative;
+  width:80px;
+  height:80px;
+  border:3px solid rgba(255,255,255,0.6);
+  border-radius:50%;
+  margin:auto;
+}
+
+.hand{
+  position:absolute;
+  width:2px;
+  height:35px;
+  background:#facc15;
+  top:5px;
+  left:50%;
+  transform-origin:bottom;
+}
+
+.center-dot{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#fff;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
 /* SLIDER */
 .slider{
   position:relative;
@@ -100,7 +130,7 @@ body{
   box-shadow:0 10px 40px rgba(0,0,0,0.5);
 }
 
-/* GRID SLIDE */
+/* UPDATED SLIDE (better spacing) */
 .slide{
   position:absolute;
   width:100%;
@@ -111,8 +141,9 @@ body{
 
   display:grid;
   grid-template-columns: repeat(3, 1fr);
-  gap:20px;
-  padding:25px;
+  gap:15px; /* reduced gap */
+
+  padding:15px; /* reduced padding */
 
   align-items:center;
   justify-items:center;
@@ -125,14 +156,14 @@ body{
   transform:scale(1);
 }
 
-/* CARDS */
+/* 🔥 BIGGER IMAGE CARDS */
 .slide img{
   width:100%;
-  max-width:300px;
-  height:180px;
+  max-width:380px;
+  height:230px;
   object-fit:cover;
-  border-radius:14px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.5);
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
   transition:0.4s;
 }
 
@@ -186,7 +217,15 @@ body{
     <div class="box"><div id="d" class="value"></div><div class="label">Days</div></div>
     <div class="box"><div id="h" class="value"></div><div class="label">Hours</div></div>
     <div class="box"><div id="m" class="value"></div><div class="label">Minutes</div></div>
-    <div class="box"><div id="s" class="value"></div><div class="label">Seconds</div></div>
+
+    <!-- CLOCK -->
+    <div class="box">
+      <div class="clock">
+        <div id="secondHand" class="hand"></div>
+        <div class="center-dot"></div>
+      </div>
+      <div class="label">Seconds</div>
+    </div>
   </div>
 
   <!-- SLIDER -->
@@ -196,8 +235,6 @@ body{
       <img src="img/event1.JPG">
       <img src="img/event2.JPG">
       <img src="img/event3.JPG">
-      
-      
       <div class="title">Our Events</div>
     </div>
 
@@ -205,7 +242,6 @@ body{
       <img src="img/leadership2.JPG">
       <img src="img/leadership1.JPG">
       <img src="img/leadership3.JPG">
-      
       <div class="title">Leadership</div>
     </div>
 
@@ -213,7 +249,6 @@ body{
       <img src="img/team1.jpeg">
       <img src="img/team3.jpeg">
       <img src="img/team2.jpeg">
-      
       <div class="title">Our Team</div>
     </div>
 
@@ -232,19 +267,25 @@ for(let i=0;i<15;i++){
   document.body.appendChild(b);
 }
 
-// COUNTDOWN
+// COUNTDOWN + SMOOTH CLOCK
 const target = new Date("Jan 1, 2032 00:00:00").getTime();
 
 setInterval(()=>{
-  const now = new Date().getTime();
-  const gap = target - now;
+  const now = new Date();
+  const gap = target - now.getTime();
 
   document.getElementById('d').innerText = Math.floor(gap/(1000*60*60*24));
   document.getElementById('h').innerText = Math.floor((gap%(1000*60*60*24))/(1000*60*60));
   document.getElementById('m').innerText = Math.floor((gap%(1000*60*60))/(1000*60));
-  document.getElementById('s').innerText = Math.floor((gap%(1000*60))/1000);
 
-},1000);
+  const seconds = now.getSeconds();
+  const ms = now.getMilliseconds();
+  const smooth = seconds + ms/1000;
+  const degree = smooth * 6;
+
+  document.getElementById('secondHand').style.transform = `rotate(${degree}deg)`;
+
+},50);
 
 // SLIDER
 let slides=document.querySelectorAll('.slide');
